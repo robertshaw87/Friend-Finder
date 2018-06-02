@@ -1,15 +1,15 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
-var app = express();
+var server = express();
 var PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 
-require("./routes/api.js").attach(app);
-require("./routes/html.js").attach(app);
+require("./app/routes/api.js").attach(server);
+require("./app/routes/html.js").attach(server);
 
-app.listen(PORT, function() {
+server.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
 });

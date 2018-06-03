@@ -45,8 +45,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="image"><h6>Portrait URL</h6></label>
-                                <input type="text" class="form-control" id="image">
+                                <label for="photo"><h6>Portrait URL</h6></label>
+                                <input type="text" class="form-control" id="photo">
                             </div>
                             <br>
                             <div class="text-right">
@@ -69,27 +69,9 @@
                     </div>
                     <div class="card-text p-3">
                         <form role="form">
-                            <h5 class="question"><label for="question1">Question 1</label></h5>
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
-                                <label class="left-label">Strongly Disagree</label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="question1" value="1" autocomplete="off"> 1
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="question1" value="2" autocomplete="off"> 2
-                                </label>
-                                <label class="btn btn-secondary active">
-                                    <input type="radio" name="question1" value="3" autocomplete="off" checked> 3
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="question1" value="4" autocomplete="off"> 4
-                                </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="question1" value="5" autocomplete="off"> 5
-                                </label>
-                                <label class="right-label">Strongly Agree</label>
+                            <div id="question-area">
+
                             </div>
-                            <br>
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary btn-md" id="survey-btn">
                                     Connect Me
@@ -117,14 +99,67 @@
 
     <!-- My Javascript -->
     <script>
+
+    var questions = [
+        "Question 1",
+        "Question 2",
+        "Question 3",
+        "Question 4",
+        "Question 5",
+        "Question 6",
+        "Question 7",
+        "Question 8",
+        "Question 9",
+        "Question 10"
+    ]
+
+    function createQuestion(questionStr, questionNum) {
+        $("#question-area").append(`
+            <h5 class="question"><label for="question${questionNum}">${questionStr}</label></h5>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
+                <label class="left-label">Strongly Disagree</label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="question${questionNum}" value="1" autocomplete="off"> 1
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="question${questionNum}" value="2" autocomplete="off"> 2
+                </label>
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="question${questionNum}" value="3" autocomplete="off" checked> 3
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="question${questionNum}" value="4" autocomplete="off"> 4
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="question${questionNum}" value="5" autocomplete="off"> 5
+                </label>
+                <label class="right-label">Strongly Agree</label>
+            </div>
+            <br>
+        `)
+    }
+
+    questions.forEach(createQuestion);
+
     $(document).on("click", "#user-info-btn", function(event){
         event.preventDefault();
     })
 
     $(document).on("click", "#survey-btn", function(event){
         event.preventDefault();
-        var selected = $("input[type='radio'][name='question1']:checked").val();
-        console.log(selected)
+        var user = {};
+        user.name = $("#name").val().trim();
+        user.photo = $("#photo").val().trim();
+        user.scores = [];
+        $("#name").val("");
+        $("#photo").val("")
+        for (var i = 0; i < questions.length; i++){
+            user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
+        }
+        console.log(user)
+        $.post("/api/friends/", user).then(function (error, response) {
+            console.log(response)
+        })
     })
 
 

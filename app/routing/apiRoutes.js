@@ -8,37 +8,38 @@ exports.attach = function (server) {
         response.json(friends);
     });
 
-    server.get("/api/friends/:friend", function (request, response) {
-        var targetFriend;
+    server.get("/api/bestfriend/:user", function (request, response) {
+        var user;
         friends.forEach(elem => {
-            if (elem.name === request.params.friend) {
-                targetFriend = elem;
+            if (elem.name === request.params.user) {
+                user = elem;
             }
         });
-        response.json(targetFriend);
+        response.json(findBestFriend(user));
     });
 
     server.post("/api/friends", function (request, response) {
-        var user = request.body;
-        var bestFriend, bestCompatibility;
-        friends.forEach(currFriend => {
-            if (!bestFriend) {
-                bestFriend = currFriend;
-                bestCompatibility = compareFriends(bestFriend.scores, user.scores);
-            }
-            var currCompatibility = compareFriends(currFriend.scores, user.scores);
-            console.log(currCompatibility)
-            console.log(bestCompatibility)
-            if (bestCompatibility > currCompatibility) {
-                bestFriend = currFriend;
-                bestCompatibility = currCompatibility;
-            }
-        })
-        friends.push(user);
-        if (!bestFriend)
-            bestFriend = user;
-        response.json(bestFriend);
+        friends.push(request.body);
     })
+}
+
+function findBestFriend(user){
+    var user = request.body;
+    var bestFriend, bestCompatibility;
+    friends.forEach(currFriend => {
+        if (!bestFriend) {
+            bestFriend = currFriend;
+            bestCompatibility = compareFriends(bestFriend.scores, user.scores);
+        }
+        var currCompatibility = compareFriends(currFriend.scores, user.scores);
+        if (bestCompatibility > currCompatibility) {
+            bestFriend = currFriend;
+            bestCompatibility = currCompatibility;
+        }
+    })
+    if (!bestFriend)
+        bestFriend = user;
+    return bestFriend;
 }
 
 compareFriends = function (friend1, friend2) {

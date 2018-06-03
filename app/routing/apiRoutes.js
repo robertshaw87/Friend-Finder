@@ -21,26 +21,30 @@ exports.attach = function (server) {
     server.post("/api/friends", function (request, response) {
         var user = request.body;
         var bestFriend, bestCompatibility;
-        friends.forEach(function (currFriend) {
+        friends.forEach(currFriend => {
             if (!bestFriend) {
                 bestFriend = currFriend;
-                bestCompatibility = this.compareFriends(bestFriend, user);
+                bestCompatibility = compareFriends(bestFriend.scores, user.scores);
             }
-            var currCompatibility = this.compareFriends(currFriend, user);
+            var currCompatibility = compareFriends(currFriend.scores, user.scores);
+            console.log(currCompatibility)
+            console.log(bestCompatibility)
             if (bestCompatibility > currCompatibility) {
                 bestFriend = currFriend;
                 bestCompatibility = currCompatibility;
             }
-        });
+        })
         friends.push(user);
+        if (!bestFriend)
+            bestFriend = user;
         response.json(bestFriend);
     })
 }
 
-exports.compareFriends = function (friend1, friend2) {
+compareFriends = function (friend1, friend2) {
     var totalDiff = 0;
     for (var i=0; i < friend1.length; i++) {
         totalDiff += Math.abs(friend1[i] - friend2[i]);
     }
-    return totalDiff
+    return totalDiff;
 }

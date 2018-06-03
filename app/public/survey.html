@@ -69,16 +69,17 @@
                     </div>
                     <div class="card-text p-3">
                         <form role="form">
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <span class="btn btn-secondary active">Strongly Disagree</span>
+                            <h5 class="question"><label for="question1">Question 1</label></h5>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
+                                <label class="left-label">Strongly Disagree</label>
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="question1" value="1" autocomplete="off"> 1
                                 </label>
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="question1" value="2" autocomplete="off"> 2
                                 </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="question1" value="3" autocomplete="off"> 3
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" name="question1" value="3" autocomplete="off" checked> 3
                                 </label>
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="question1" value="4" autocomplete="off"> 4
@@ -86,11 +87,11 @@
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="question1" value="5" autocomplete="off"> 5
                                 </label>
-                                <span class="btn btn-secondary active">Strongly Agree</span>
+                                <label class="right-label">Strongly Agree</label>
                             </div>
                             <br>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary btn-md" id="user-info-btn">
+                                <button type="submit" class="btn btn-primary btn-md" id="survey-btn">
                                     Connect Me
                                 </button>
                             </div>
@@ -116,7 +117,15 @@
 
     <!-- My Javascript -->
     <script>
-    
+    $(document).on("click", "#user-info-btn", function(event){
+        event.preventDefault();
+    })
+
+    $(document).on("click", "#survey-btn", function(event){
+        event.preventDefault();
+        var selected = $("input[type='radio'][name='question1']:checked").val();
+        console.log(selected)
+    })
 
 
     </script>

@@ -15,6 +15,10 @@
 
     <!-- My CSS -->
     <style>
+        .modalPicture{
+            width: 100%;
+        }
+
     </style>
 
     <title>Connect - Survey</title>
@@ -74,7 +78,7 @@
 
                             </div>
                             <div class="text-right">
-                                <button type="submit button" class="btn btn-primary btn-md" data-toggle="modal" data-target="bestFriendModal" id="survey-btn">
+                                <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#bestFriendModal" id="survey-btn">
                                     Connect Me
                                 </button>
                             </div>
@@ -181,9 +185,9 @@
             $.post("/api/friends/", user, function (response) {
                 console.log(user.name);
                 console.log(response);
-                $("#modal-body").html(`
+                $(".modal-body").html(`
                     <h4>${response.name}</h4>
-                    <img src="${response.photo}" alt="${response.name}">
+                    <img src="${response.photo}" alt="${response.name}" class="modalPicture">
                 `)
             })
         })

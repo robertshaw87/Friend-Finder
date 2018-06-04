@@ -12,12 +12,9 @@
 
     <!-- Google Fonts -->
 
-    
+
     <!-- My CSS -->
     <style>
-
-
-
     </style>
 
     <title>Connect - Survey</title>
@@ -40,12 +37,16 @@
                     <div class="card-text p-3">
                         <form role="form">
                             <div class="form-group">
-                                <label for="name"><h6>Name</h6></label>
+                                <label for="name">
+                                    <h6>Name</h6>
+                                </label>
                                 <input type="text" class="form-control" id="name">
                             </div>
 
                             <div class="form-group">
-                                <label for="photo"><h6>Portrait URL</h6></label>
+                                <label for="photo">
+                                    <h6>Portrait URL</h6>
+                                </label>
                                 <input type="text" class="form-control" id="photo">
                             </div>
                             <br>
@@ -73,7 +74,7 @@
 
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary btn-md" id="survey-btn">
+                                <button type="submit button" class="btn btn-primary btn-md" data-toggle="modal" data-target="bestFriendModal" id="survey-btn">
                                     Connect Me
                                 </button>
                             </div>
@@ -84,7 +85,27 @@
             <div class="col"></div>
         </div>
     </div>
-
+    <div class="modal fade" id="bestFriendModal" tabindex="-1" role="dialog" aria-labelledby="bestFriendModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bestFriendModalLongTitle">Your new best friend!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/">
+                        <button type="button" class="btn btn-primary">Home</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -100,21 +121,21 @@
     <!-- My Javascript -->
     <script>
 
-    var questions = [
-        "Question 1",
-        "Question 2",
-        "Question 3",
-        "Question 4",
-        "Question 5",
-        "Question 6",
-        "Question 7",
-        "Question 8",
-        "Question 9",
-        "Question 10"
-    ]
+        var questions = [
+            "Question 1",
+            "Question 2",
+            "Question 3",
+            "Question 4",
+            "Question 5",
+            "Question 6",
+            "Question 7",
+            "Question 8",
+            "Question 9",
+            "Question 10"
+        ]
 
-    function createQuestion(questionStr, questionNum) {
-        $("#question-area").append(`
+        function createQuestion(questionStr, questionNum) {
+            $("#question-area").append(`
             <h5 class="question"><label for="question${questionNum}">${questionStr}</label></h5>
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
                 <label class="left-label">Strongly Disagree</label>
@@ -137,32 +158,35 @@
             </div>
             <br>
         `)
-    }
-
-    questions.forEach(createQuestion);
-
-    $(document).on("click", "#user-info-btn", function(event){
-        event.preventDefault();
-    })
-
-    $(document).on("click", "#survey-btn", function(event){
-        event.preventDefault();
-        var user = {};
-        user.name = $("#name").val().trim();
-        user.photo = $("#photo").val().trim();
-        user.scores = [];
-        $("#name").val("");
-        $("#photo").val("")
-        for (var i = 0; i < questions.length; i++){
-            user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
         }
-        console.log(user)
-        $.post("/api/friends/", user, function (response) {
-            console.log(user.name);
-            console.log(response);
-          
+
+        questions.forEach(createQuestion);
+
+        $(document).on("click", "#user-info-btn", function (event) {
+            event.preventDefault();
         })
-    })
+
+        $(document).on("click", "#survey-btn", function (event) {
+            event.preventDefault();
+            var user = {};
+            user.name = $("#name").val().trim();
+            user.photo = $("#photo").val().trim();
+            user.scores = [];
+            $("#name").val("");
+            $("#photo").val("")
+            for (var i = 0; i < questions.length; i++) {
+                user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
+            }
+            console.log(user)
+            $.post("/api/friends/", user, function (response) {
+                console.log(user.name);
+                console.log(response);
+                $("#modal-body").html(`
+                    <h4>${response.name}</h4>
+                    <img src="${response.photo}" alt="${response.name}">
+                `)
+            })
+        })
 
 
     </script>

@@ -8,23 +8,30 @@ exports.attach = function (server) {
         response.json(friends);
     });
 
-    server.get("/api/bestfriend/:user", function (request, response) {
-        var user;
-        friends.forEach(elem => {
-            if (elem.name === request.params.user) {
-                user = elem;
-            }
-        });
-        response.json(findBestFriend(user));
-    });
+    // server.get("/api/bestfriend/:user", function (request, response) {
+    //     var user;
+    //     // console.log(request.params.user)
+    //     friends.forEach(elem => {
+    //         console.log(elem.name + " " + request.params.user)
+    //         if (elem.name === request.params.user) {
+    //             user = elem;
+    //             console.log("MATCH!")
+    //         }
+    //     });
+    //     console.log(user);
+    //     var bestFriend = findBestFriend(user);
+    //     console.log(bestFriend)
+    //     response.json(bestFriend);
+    // });
 
     server.post("/api/friends", function (request, response) {
+        var bestFriend = findBestFriend(request.body);
         friends.push(request.body);
+        response.json(bestFriend);
     })
 }
 
 function findBestFriend(user){
-    var user = request.body;
     var bestFriend, bestCompatibility;
     friends.forEach(currFriend => {
         if (!bestFriend) {
@@ -32,13 +39,14 @@ function findBestFriend(user){
             bestCompatibility = compareFriends(bestFriend.scores, user.scores);
         }
         var currCompatibility = compareFriends(currFriend.scores, user.scores);
-        if (bestCompatibility > currCompatibility) {
+        if ((bestCompatibility > currCompatibility) && (currFriend.name != user.name)) {
             bestFriend = currFriend;
             bestCompatibility = currCompatibility;
         }
     })
     if (!bestFriend)
         bestFriend = user;
+    console.log(bestFriend);
     return bestFriend;
 }
 

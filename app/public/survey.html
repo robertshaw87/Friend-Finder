@@ -157,8 +157,10 @@
             user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
         }
         console.log(user)
-        $.post("/api/friends/", user).then(function (error, response) {
-            console.log(response)
+        $.post("/api/friends/", user, function (response) {
+            console.log(user.name);
+            console.log(response);
+          
         })
     })
 

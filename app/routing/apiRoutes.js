@@ -8,22 +8,6 @@ exports.attach = function (server) {
         response.json(friends);
     });
 
-    // server.get("/api/bestfriend/:user", function (request, response) {
-    //     var user;
-    //     // console.log(request.params.user)
-    //     friends.forEach(elem => {
-    //         console.log(elem.name + " " + request.params.user)
-    //         if (elem.name === request.params.user) {
-    //             user = elem;
-    //             console.log("MATCH!")
-    //         }
-    //     });
-    //     console.log(user);
-    //     var bestFriend = findBestFriend(user);
-    //     console.log(bestFriend)
-    //     response.json(bestFriend);
-    // });
-
     server.post("/api/friends", function (request, response) {
         var bestFriend = findBestFriend(request.body);
         friends.push(request.body);

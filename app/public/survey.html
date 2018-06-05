@@ -11,25 +11,48 @@
         crossorigin="anonymous">
 
     <!-- Google Fonts -->
-
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Gloria+Hallelujah" rel="stylesheet">
 
     <!-- My CSS -->
     <style>
+        .display-4, .card-header{
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+        .lead, .btn{
+            font-family: 'Architects Daughter', cursive;
+        }
+        #mini-pet {
+            height:50px;
+            margin-right: 10px;
+        }
+        #survey-cat{
+            width: 110px;
+        }
+        .selection-button{
+            width:30px;
+            border-left-style:solid;
+            border-right-style: solid;
+            border-left-color: #aaa;
+            border-right-color: #aaa;
+        }
+
         .modalPicture{
-            width: 100%;
+            height: 100%;
         }
 
     </style>
 
-    <title>Connect - Survey</title>
+    <title>Pet Pal - Survey</title>
 </head>
 
 <body>
 
     <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
-            <h1 class="display-4">Connect</h1>
-            <p class="lead">Bringing users together so you don't have to talk to people.</p>
+            <img src="/app/images/survey.gif" alt="Survey Cat" class="m-0 ml-5 float-left" id="survey-cat">
+            <h1 class="display-4">Pet Pal Intro&shy;ductions</h1>
+            <p class="lead">Tell us some things about your pet so we can better match them to a playmate!</p>
+            <a href="/"><button class="btn-primary find-button p-2 mt-2 d-none"><img src="/app/images/mini-cat.gif" alt="mini-pet" id="mini-pet">Home</button></a>
         </div>
     </div>
 
@@ -38,6 +61,7 @@
             <div class="col"></div>
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card mt-3" id="user-info">
+                    <div class="card-header d-none" id="user-info-messages"></div>
                     <div class="card-text p-3">
                         <form role="form">
                             <div class="form-group">
@@ -49,14 +73,14 @@
 
                             <div class="form-group">
                                 <label for="photo">
-                                    <h6>Portrait URL</h6>
+                                    <h6>Image URL</h6>
                                 </label>
                                 <input type="text" class="form-control" id="photo">
                             </div>
                             <br>
                             <div class="text-right">
                                 <button type="submit" class="btn btn-primary btn-md" id="user-info-btn">
-                                    Connect Me
+                                    Register Pet
                                 </button>
                             </div>
                         </form>
@@ -68,7 +92,7 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="card mt-3" id="survey">
+                <div class="card mt-3 mb-3 d-none" id="survey">
                     <div class="card-header">
                         <h3>Compatibility Survey</h3>
                     </div>
@@ -77,9 +101,9 @@
                             <div id="question-area">
 
                             </div>
-                            <div class="text-right">
+                            <div class="text-right mt-4">
                                 <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#bestFriendModal" id="survey-btn">
-                                    Connect Me
+                                    Find my Pet Pal
                                 </button>
                             </div>
                         </form>
@@ -125,6 +149,7 @@
     <!-- My Javascript -->
     <script>
 
+        var user = {};
         var questions = [
             "Question 1",
             "Question 2",
@@ -142,23 +167,23 @@
             $("#question-area").append(`
             <h5 class="question"><label for="question${questionNum}">${questionStr}</label></h5>
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
-                <label class="left-label">Strongly Disagree</label>
-                <label class="btn btn-secondary">
+                <button class="btn btn-secondary p-0 pl-2 pr-2" disabled>Strongly Disagree</button>
+                <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button">
                     <input type="radio" name="question${questionNum}" value="1" autocomplete="off"> 1
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button">
                     <input type="radio" name="question${questionNum}" value="2" autocomplete="off"> 2
                 </label>
-                <label class="btn btn-secondary active">
+                <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button active">
                     <input type="radio" name="question${questionNum}" value="3" autocomplete="off" checked> 3
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button">
                     <input type="radio" name="question${questionNum}" value="4" autocomplete="off"> 4
                 </label>
-                <label class="btn btn-secondary">
+                <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button">
                     <input type="radio" name="question${questionNum}" value="5" autocomplete="off"> 5
                 </label>
-                <label class="right-label">Strongly Agree</label>
+                <button class="btn btn-secondary p-0 pl-2 pr-2" disabled>Strongly Agree</button>
             </div>
             <br>
         `)
@@ -166,18 +191,33 @@
 
         questions.forEach(createQuestion);
 
+
         $(document).on("click", "#user-info-btn", function (event) {
             event.preventDefault();
+            user = {};
+            $("#user-info-messages").addClass("d-none")
+            user.name = $("#name").val().trim();
+            user.photo = $("#photo").val().trim();
+            if (user.name && user.photo){ 
+                $("#name").val("");
+                $("#photo").val("");
+                $("#user-info").addClass("d-none");
+                $("#survey").removeClass("d-none")
+                $("#survey-cat").attr("src", "/app/images/cat-survey.gif")
+            } else {
+                $("#user-info-messages").removeClass("d-none")
+                $("#user-info-messages").empty();
+                if (!user.name)
+                    $("#user-info-messages").append("<h3>Please input a name for your pet!</h3>")
+                if (!user.photo)
+                    $("#user-info-messages").append("<h3>Please input a url to an image for your pet!</h3>")
+            }
         })
 
         $(document).on("click", "#survey-btn", function (event) {
             event.preventDefault();
-            var user = {};
-            user.name = $("#name").val().trim();
-            user.photo = $("#photo").val().trim();
+            $("#survey-cat").attr("src", "/app/images/cat-success.gif")
             user.scores = [];
-            $("#name").val("");
-            $("#photo").val("")
             for (var i = 0; i < questions.length; i++) {
                 user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
             }

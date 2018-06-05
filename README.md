@@ -9,6 +9,8 @@ Open up the [project link](https://peaceful-dusk-98568.herokuapp.com/) and you s
 
 Just follow the on screen instructions and fill out the survey to find a new friend for your pet!
 
+If you wish to view the API, there's a link on the bottom left of the home page that will take you to the JSON object of the list of all available pets.
+
 ### Prerequisites
 
 You need to have a modern browser able to handle html5, javascript, and css. 
@@ -41,6 +43,9 @@ No installation needed! Just open the page in your preferred browser.
 
 ## Challenges
 
+file structure to maximize modularity
+first full stack app
+seperate routes into seperate files
 
 ## Authors
 

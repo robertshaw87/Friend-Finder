@@ -251,9 +251,7 @@
                 user.scores.push($(`input[type='radio'][name='question${i}']:checked`).val());
             }
             $.post("/api/friends/", user, function (response) {
-                $(".modal-body").html(`
-                    <img src="${response.photo}" alt="${response.name}" class="modal-picture">
-                `);
+                $(".modal-body").html(`<img src="${response.photo}" alt="${response.name}" class="modal-picture">`);
                 $("#bestFriendModalLongTitle").html(`<span class="pet-name">${user.name}</span>'s new Pet Pal is <span class="pet-name">${response.name}</span>!`);
                 $(".mini-pet").parent().removeClass("d-none");
             })

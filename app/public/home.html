@@ -11,36 +11,47 @@
         crossorigin="anonymous">
 
     <!-- Google Fonts -->
-
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Gloria+Hallelujah" rel="stylesheet">
     
     <!-- My CSS -->
     <style>
+        h1, .find-button {
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+        .find-button {
+            font-size: 24px;
+            border-radius: 10px;
+        }
+        #mini-pet {
+            height:50px;
+            margin-right: 10px;
+        }
+        .lead{
+            font-family: 'Architects Daughter', cursive;
+        }
+        #api-link{
+            bottom:5px;
+            left: 10px;
+        }
 
 
 
     </style>
 
-    <title>Pet Connect - Home Page</title>
+    <title>Pet Pals - Home Page</title>
 </head>
 
 <body>
-    <div class="jumbotron jumbotron-fluid text-center">
+    <div class="jumbotron jumbotron-fluid text-center p-3">
         <div class="container">
-            <h1 class="display-4">Pet Connect</h1>
-            <p class="lead">Bringing together those who understand the love</p>
-            <a href="/survey"><button class="btn-primary">Connect Me</button></a>
+            <img src="/app/images/petpal.gif" alt="Pet Pals" class="m-3" id="petpals">
+            <h1 class="display-4">Pet Pals</h1>
+            <p class="lead">Match your beloved family members with potential playmates!</p>
+            <a href="/survey"><button class="btn-primary find-button p-2 mt-2"><img src="/app/images/mini-pet.gif" alt="mini-pet" id="mini-pet">Find a Pal</button></a>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <button id="test">test</button>
-                <div id="message"></div>
-            </div>
-        </div>
-    </div>
-
+    <a href="/api/friends" class="position-absolute" id="api-link">API page</a>
     <!-- Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -55,35 +66,6 @@
 
     <!-- My Javascript -->
     <script>
-
-        function randInt() {
-            return Math.floor(Math.random() * 5) + 1;
-        }
-        var i = 1;
-        $(document).on("click", "#test", function(event){
-            var test1 = {
-                name: "Test" + i,
-                photo: "https://i.imgur.com/M7RYRBm.gif",
-                scores: [
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt(),
-                    randInt()
-                ]
-            }
-            i++;
-            $.post("/api/friends", test1).then(function (data) {
-                console.log(data);
-                $("#message").html(JSON.stringify(data))
-            })
-        });
-
 
     </script>
 </body>

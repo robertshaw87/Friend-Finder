@@ -1,4 +1,5 @@
-# Friend-Finder
+# Pet Pals
+[Pet Pals](https://peaceful-dusk-98568.herokuapp.com/)
 Fill out the survey and find a friend with similar interests!
 
 ## Getting Started
@@ -43,8 +44,12 @@ No installation needed! Just open the page in your preferred browser.
 
 ## Challenges
 
-file structure to maximize modularity
-first full stack app
+This was my first full stack project! Setting everything up and writing both the code for the server and the webpages was very rewarding. I love vertical integration!
+
+![File Structure](readme/file-structure.png "File Structure")
+
+I followed the 
+
 seperate routes into seperate files
 
 ## Authors

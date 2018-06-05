@@ -190,7 +190,7 @@
             "Question 10"
         ]
 
-        function createQuestion(questionStr, questionNum) {
+        function createQuestion(questionStr, questionNum, name) {
             $("#question-area").append(`
             <h5 class="question"><label for="question${questionNum}">${questionStr}</label></h5>
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
@@ -216,9 +216,8 @@
         `)
         }
 
-        questions.forEach(createQuestion);
 
-
+        //store user name and image url, then show the survey
         $(document).on("click", "#user-info-btn", function (event) {
             event.preventDefault();
             user = {};
@@ -231,6 +230,7 @@
                 $("#user-info").addClass("d-none");
                 $("#survey").removeClass("d-none");
                 $("#survey-cat").attr("src", "/app/images/cat-survey.gif");
+                questions.forEach(createQuestion);
             } else {
                 $("#user-info-messages").removeClass("d-none");
                 $("#user-info-messages").empty();
@@ -241,6 +241,7 @@
             }
         })
 
+        // post user data on survey completion, receive back best match object to display in modal
         $(document).on("click", "#survey-btn", function (event) {
             event.preventDefault();
             $("#survey-cat").attr("src", "/app/images/cat-success.gif");

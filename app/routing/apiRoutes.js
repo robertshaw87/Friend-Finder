@@ -4,7 +4,6 @@ var exports = module.exports = {};
 
 exports.attach = function (server) {
     server.get("/api/friends", function (request, response) {
-        console.log(friends);
         response.json(friends);
     });
 
@@ -30,7 +29,6 @@ function findBestFriend(user){
     })
     if (!bestFriend)
         bestFriend = user;
-    console.log(bestFriend);
     return bestFriend;
 }
 

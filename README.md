@@ -48,9 +48,7 @@ This was my first full stack project! Setting everything up and writing both the
 
 ![File Structure](readme/file-structure.png "File Structure")
 
-I split the file structure into a more modular framework. It lets me 
-
-seperate routes into seperate files
+I split the file structure into a more modular framework. It lets me have a more clear flow while preparing for using MCV. I look forward to adding a SQL databse into my next project.
 
 ## Authors
 

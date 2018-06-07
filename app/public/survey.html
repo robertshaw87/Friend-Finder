@@ -24,6 +24,9 @@
             background-size: contain;
             background-blend-mode: overlay;
         }
+        body{
+            background-color: rgba(70, 70, 70, 1)
+        }
         .display-4, .card-header, .find-button, .modal-header{
             font-family: 'Gloria Hallelujah', cursive;
         }
@@ -55,10 +58,6 @@
             max-height: 300px;
         }
 
-        .modal-content {
-            
-        }
-   
         .pet-name {
             font-family: 'Rock Salt', cursive;
             font-weight: bold;
@@ -192,7 +191,7 @@
 
         function createQuestion(questionStr, questionNum, name) {
             $("#question-area").append(`
-            <h5 class="question"><label for="question${questionNum}">${questionStr}</label></h5>
+            <h5 class="question mt-4"><label for="question${questionNum}">${questionStr}</label></h5>
             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="question1">
                 <button class="btn btn-secondary p-0 pl-2 pr-2 d-none d-sm-block" disabled>Strongly Disagree</button>
                 <label class="btn btn-secondary p-0 pl-2 pr-2 selection-button">
@@ -212,7 +211,7 @@
                 </label>
                 <button class="btn btn-secondary p-0 pl-2 pr-2 d-none d-sm-block" disabled>Strongly Agree</button>
             </div>
-            <br>
+            <hr>
         `)
         }
 

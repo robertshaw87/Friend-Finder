@@ -21,8 +21,11 @@
             background-image: url("/app/images/pets-banner.png");
             background-position: center bottom;
             background-repeat: no-repeat;
-            background-size: contain;
+            background-size: cover;
             background-blend-mode: overlay;
+        }
+        body{
+            background-color: rgba(70, 70, 70, 1)
         }
         h1, .find-button {
             font-family: 'Gloria Hallelujah', cursive;
@@ -60,7 +63,7 @@
         </div>
     </div>
 
-    <a href="/api/friends" class="position-absolute" id="api-link">API page</a>
+    <a href="/api/friends" class="position-absolute" id="api-link"><button type="button" class="btn btn-outline-light">Pet Pals API</button></a>
     <!-- Bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

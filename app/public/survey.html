@@ -30,7 +30,7 @@
         .display-4, .card-header, .find-button, .modal-header{
             font-family: 'Gloria Hallelujah', cursive;
         }
-        .lead, .btn, .modal-body{
+        .lead, .btn{
             font-family: 'Architects Daughter', cursive;
         }
         .mini-pet {
@@ -252,7 +252,7 @@
             }
             $.post("/api/friends/", user, function (response) {
                 $(".modal-body").html(`<img src="${response.photo}" alt="${response.name}" class="modal-picture">`);
-                $("#bestFriendModalLongTitle").html(`<span class="pet-name">${user.name}</span>'s new Pet Pal is <span class="pet-name">${response.name}</span>!`);
+                $("#bestFriendModalLongTitle").html(`<span class="pet-name">${user.name}</span>'s new Pet Pal is <p><span class="pet-name">${response.name}</span>!</p>`);
                 $(".mini-pet").parent().removeClass("d-none");
             })
         })
